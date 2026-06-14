@@ -11,19 +11,13 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t my-app .'
+                sh 'docker build -t nginx-webapp .'
             }
-        }
-
-        stage('Stop Old Container') {
-            steps {
-                sh 'docker rm -f my-container || true'
-            }
-        }
+        }        
 
         stage('Run New Container') {
             steps {
-                sh 'docker run -d -p 80:80 --name my-container my-app'
+                sh 'docker run -d --name nginx-webapp -p 80:80 nginx-webapp'
             }
         }
     }
